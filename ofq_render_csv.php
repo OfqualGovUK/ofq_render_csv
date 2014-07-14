@@ -7,7 +7,7 @@
  * Author: Philip McAllister
  * Author URI: http://about.me/icerunner
  * Text Domain: ofq_render_csv
- * License: OGL
+ * License: MIT
  */
 function csv_shortcode($attrs, $content = null) {
 	
