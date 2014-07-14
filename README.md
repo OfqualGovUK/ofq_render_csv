@@ -12,6 +12,10 @@ Copyright (c) Philip McAllister 2014.
 
 This software is licensed under the MIT Licence. For more details see 'LICENCE'.
 
+## Installation
+
+Copy the file `ofq_render_csv.php` to `wp-content/plugins/ofq_render_csv/` in your wordpress install and then enable it from the admin interface.
+
 ## Options
 
 ### src
