@@ -40,7 +40,7 @@ Copy the file `ofq_render_csv.php` to `wp-content/plugins/ofq_render_csv/` in yo
 ## Notes
 
 * Newlines are preserved from the source CSV file by converting newlines into `<br>` tags.
-* Empty cells are pupulated with a non-breaking space: `&nbsp;`.
+* Empty cells are populated with a non-breaking space: `&nbsp;`.
 
 ## Options
 
