@@ -3,7 +3,7 @@
  * Plugin Name: Ofqual Render CSV
  * Plugin URI: https://github.com/icerunner/ofq_render_csv
  * Description: Import data from a CSV spreadsheet and display in a table.
- * Version: 2.0
+ * Version: 2.1
  * Author: Philip McAllister
  * Author URI: http://about.me/icerunner
  * Text Domain: ofq_render_csv
@@ -21,7 +21,7 @@ function csv_shortcode($attrs, $content = null) {
 	$table_output = "<table";
 	$csv_line = [];
 	$col_num = 0;
-	
+	$file_error = "";
 	
 	// XXX DEBUG
 	//if ($plug_debug) { print "\n\n<!-- CSV: Attributes\n".print_r($attrs)."\n-->\n\n"; }
@@ -47,11 +47,15 @@ function csv_shortcode($attrs, $content = null) {
 				return "<!-- CSV: Rendering of remote CSV files is not allowed. Our host is: '".$_SERVER['SERVER_NAME']."' src was: '".$attrs['src']."' -->";
 			}
 		}
-		
+		// Else file is a relative or absolute path but not a fully-formed URI
+		else
+		{
+			$csv_file = realpath(ABSPATH . $attrs['src']);
+		}
 		// XXX DEBUG
 		if ($plug_debug) { print("<!-- CSV: File is: '".$csv_file."' -->\n"); }
 		
-		// Open CSV file	
+		// Open CSV file
 		$csv_fh = fopen($csv_file,"r");
 		
 		// If file successfully opened for reading
@@ -132,8 +136,8 @@ function csv_shortcode($attrs, $content = null) {
 			// Logic to control how headers appear
 			//
             // For details of the various combinations that affect how headers appear see https://github.com/icerunner/ofq_render_csv/blob/master/README.md
-			
-            // XXX DEBUG
+            
+			// XXX DEBUG
 			//if ($plug_debug) { echo "CSV: Header debug info \n".print_r($attrs)."\n".print_r($disable)."\n-->\n"; }
 
 			/*
@@ -182,10 +186,10 @@ function csv_shortcode($attrs, $content = null) {
 				
 				$table_output .= "\n<thead><tr>";
 				
-				// If we also have row headers, insert a blank cell
+				// If we also have row headers, insert a blank cell to go in the top-left
 				if (array_key_exists('rowheaders',$attrs) || (array_key_exists('csvrowheaders',$enable) && !array_key_exists('csvrowheaders',$disable)))
 				{
-					$table_output .= "<td>&nbsp;</td>\n";
+					$table_output .= "<td class=\"empty-top-left-cell\">&nbsp;</td>\n";
 				}
 				
 				foreach ($headers_for_cols as $cell)
@@ -261,7 +265,8 @@ function csv_shortcode($attrs, $content = null) {
   	}
   	else
   	{
-  		return "<!-- CSV: Couldn't open file '".$local_csv_path."' couldn't be opened for reading: ".error_get_last()."-->";
+  		$file_error = error_get_last();
+  		return "<!-- CSV: Couldn't open file '".$csv_file."' couldn't be opened for reading: ".$file_error['message']." -->";
   	}
   }
   else

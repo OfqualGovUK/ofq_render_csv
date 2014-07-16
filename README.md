@@ -8,7 +8,7 @@ A Wordpress plugin to render a local CSV file as a table using a shortcode.
 
 ## Version
 
-Version 2.0
+Version 2.1
 Wednesday 16th July 2014
 
 ## Licensing
@@ -22,6 +22,11 @@ This software is licensed under the MIT Licence. For more details see 'LICENCE'.
 Copy the file `ofq_render_csv.php` to `wp-content/plugins/ofq_render_csv/` in your wordpress install and then enable it from the admin interface.
 
 ## Changes
+
+### v2.1
+
+* Fixed a bug with handling of source file locations that were relative or absolute and not fully-formed URLs. The bug would cause the file to not be found.
+* Added a class of `empty-top-left-cell` when a blank cell is inserted in the top-left. That is, when displaying both column and row headers.
 
 ### v2.0
 
