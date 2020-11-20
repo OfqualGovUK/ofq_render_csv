@@ -13,7 +13,7 @@ Wednesday 16th July 2014
 
 ## Licensing
 
-Copyright (c) Philip McAllister 2014.
+Crown Copyright 2014.
 
 This software is licensed under the MIT Licence. For more details see 'LICENCE'.
 
